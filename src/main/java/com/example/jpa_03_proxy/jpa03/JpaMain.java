@@ -1,5 +1,7 @@
 package com.example.jpa_03_proxy.jpa03;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -17,15 +19,27 @@ public class JpaMain {
 
         try {
 
-            Member member = em.find(Member.class, 1L);
+            Member member = new Member();
+            member.setUsername("hello");
 
-            printMember(member);
-            printMemberAndTeam(member);
+            em.persist(member);
 
+            em.flush();
+            em.clear();
+
+            Member referenceMember = em.getReference(Member.class, member.getId());
+//            Member findMember = em.find(Member.class, member.getId()); // 영속성 컨텍스트에 저장됨
+            System.out.println("referenceMember = " + referenceMember.getClass());
+
+//            em.detach(referenceMember);
+            System.out.println("referenceMember.username = " + referenceMember.getUsername());
+
+            Hibernate.initialize(referenceMember); // 강제 초기화
             tx.commit();
 
         } catch (Exception e) {
             tx.rollback();
+            System.out.println("e : " + e);
 
         } finally {
             em.close();
