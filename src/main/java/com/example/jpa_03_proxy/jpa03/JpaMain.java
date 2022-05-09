@@ -19,22 +19,26 @@ public class JpaMain {
 
         try {
 
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
+
             Member member = new Member();
             member.setUsername("hello");
-
+            member.setTeam(team);
             em.persist(member);
 
             em.flush();
             em.clear();
 
-            Member referenceMember = em.getReference(Member.class, member.getId());
-//            Member findMember = em.find(Member.class, member.getId()); // 영속성 컨텍스트에 저장됨
-            System.out.println("referenceMember = " + referenceMember.getClass());
+//            Member referenceMember = em.getReference(Member.class, member.getId());
+            Member findMember = em.find(Member.class, member.getId()); // 영속성 컨텍스트에 저장됨
+//            System.out.println("findMember = " + findMember.getTeam().getClass());
 
 //            em.detach(referenceMember);
-            System.out.println("referenceMember.username = " + referenceMember.getUsername());
+//            System.out.println("referenceMember.username = " + referenceMember.getUsername());
 
-            Hibernate.initialize(referenceMember); // 강제 초기화
+//            Hibernate.initialize(referenceMember); // 강제 초기화
             tx.commit();
 
         } catch (Exception e) {

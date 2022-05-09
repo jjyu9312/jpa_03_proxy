@@ -18,9 +18,9 @@ public class Member extends BaseEntity{
     @Column(name = "USERNAME") // 데이터베이스와 컬럼명 매칭
     private String username;
 
-    // 1:N 양방향에 사용
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false) // 연관관계 주인처럼 만들었지만 읽기 전용 필드로 사용
+//    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false) // fetch = FetchType.LAZY 있으면 프록시 객체로 조회
     private Team team;
 
 }
