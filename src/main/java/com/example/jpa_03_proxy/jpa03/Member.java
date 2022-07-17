@@ -15,10 +15,8 @@ public class Member extends BaseEntity{
     @Column(name = "MEMBER_ID")
     private Long id;
 
-
     @Column(name = "USERNAME") // 데이터베이스와 컬럼명 매칭
     private String username;
-
 
 //    @ManyToOne(fetch = FetchType.LAZY) // 지연 로딩
     @ManyToOne(fetch = FetchType.EAGER)  // 즉시 로딩
