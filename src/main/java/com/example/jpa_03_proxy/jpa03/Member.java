@@ -10,13 +10,16 @@ import java.util.List;
 @Data
 public class Member extends BaseEntity{
 
+
     @Id
     @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
 
+
     @Column(name = "USERNAME") // 데이터베이스와 컬럼명 매칭
     private String username;
+
 
 //    @ManyToOne(fetch = FetchType.LAZY) // FetchType.LAZY => 지연 로딩
     @ManyToOne(fetch = FetchType.EAGER)  // FetchType.EAGER => 즉시 로딩
