@@ -23,4 +23,6 @@ public class Member extends BaseEntity{
     @ManyToOne(fetch = FetchType.EAGER)  // FetchType.EAGER => 즉시 로딩
     @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false) // fetch = FetchType.LAZY 있으면 프록시 객체로 조회
     private Team team;
+
+
 }
